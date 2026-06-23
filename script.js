@@ -66,8 +66,16 @@ function loginUser(username, remember) {
     currentUser = username;
     if (remember) localStorage.setItem('nildanta_user', username);
     
+    // 1. Hide the authentication layout container completely
+    document.getElementById('screen-auth').style.display = 'none';
     document.getElementById('screen-auth').classList.remove('active');
-    document.getElementById('main-app').classList.add('active');
+    
+    // 2. Unhide and explicitly display the main app container layout
+    const mainApp = document.getElementById('main-app');
+    mainApp.style.display = 'flex'; 
+    mainApp.classList.add('active');
+    
+    // 3. Move the viewport to your home layout view
     navigate('mystats');
     listenToPresence();
 }
