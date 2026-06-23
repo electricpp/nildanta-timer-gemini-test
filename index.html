@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nildanta Timer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+
+        <div id="screen-auth" class="screen active">
+            <h1 class="brand-title">NILDANTA-TIMER</h1>
+            <p class="brand-sub">Powered by ELECTRICPP</p>
+            
+            <div class="auth-tabs">
+                <button id="tab-signup" class="auth-tab active" onclick="switchAuthTab('signup')">Sign Up</button>
+                <button id="tab-login" class="auth-tab" onclick="switchAuthTab('login')">Log In</button>
+            </div>
+            
+            <div class="auth-form">
+                <input type="text" id="auth-username" placeholder="username">
+                <input type="password" id="auth-password" placeholder="password">
+                <button id="auth-submit-btn" onclick="handleAuth()">Sign Up</button>
+                
+                <div class="auth-options">
+                    <label><input type="checkbox" id="auth-remember"> Remember Me</label>
+                </div>
+                <div id="auth-messages"></div>
+            </div>
+        </div>
+
+        <div id="main-app" class="screen" style="display: none;">
+            
+            <header class="app-header">
+                <div class="header-left">
+                    <button id="back-btn" style="display:none;" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+                    <h2 id="header-title">Home</h2>
+                </div>
+                <div class="header-right">
+                    <button id="header-action-btn" style="display:none;"><i class="fas fa-edit"></i></button>
+                    <button id="leaderboard-btn" style="display:none;" onclick="navigate('leaderboard')"><i class="fas fa-chart-bar"></i></button>
+                </div>
+            </header>
+
+            <main id="content-area">
+                
+                <div id="view-timers" class="view">
+                    <div class="user-banner">
+                        <span id="timers-username">user-1</span>
+                        <button onclick="navigate('customize')"><i class="fas fa-edit"></i></button>
+                    </div>
+                    <h3 class="section-title">Start a Timer</h3>
+                    <div id="subject-list" class="list-container">
+                        </div>
+                    <button class="customize-btn" onclick="navigate('customize')">Customize <i class="fas fa-cog"></i></button>
+                </div>
+
+                <div id="view-customize" class="view" style="display:none;">
+                    <h3 class="section-title">Customize</h3>
+                    <div id="customize-list" class="list-container">
+                        </div>
+                    <div class="add-subject-row">
+                        <input type="text" id="new-subject-name" placeholder="name">
+                        <button onclick="addSubject()">Add</button>
+                    </div>
+                </div>
+
+                <div id="view-timer-detail" class="view" style="display:none;">
+                    <h2 id="active-subject-title" class="subject-header">Bangla</h2>
+                    
+                    <h3 class="section-title">Timer</h3>
+                    <div class="timer-display" id="countdown-display">00:00:00</div>
+                    <div class="timer-inputs">
+                        <input type="number" id="input-hours" placeholder="00" min="0"> hours
+                        <input type="number" id="input-mins" placeholder="00" min="0" max="59"> minutes
+                    </div>
+                    <div class="timer-controls">
+                        <button class="btn-primary" onclick="resetCountdown()">Reset</button>
+                        <button class="btn-light" id="countdown-toggle" onclick="toggleCountdown()">Start</button>
+                        <button class="btn-danger" onclick="stopCountdown()">Stop</button>
+                    </div>
+
+                    <h3 class="section-title">Stopwatch</h3>
+                    <div class="timer-display" id="stopwatch-display">00:00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn-primary" onclick="resetStopwatch()">Reset</button>
+                        <button class="btn-light" id="stopwatch-toggle" onclick="toggleStopwatch()">Start</button>
+                        <button class="btn-danger" onclick="stopStopwatch()">Stop</button>
+                    </div>
+                </div>
+
+                <div id="view-mystats" class="view" style="display:none;">
+                    <div class="stats-section">
+                        <div class="stats-header">
+                            <i class="fas fa-chevron-left"></i> Today <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="stats-card" id="stats-today">
+                            </div>
+                    </div>
+                    </div>
+
+                <div id="view-people" class="view" style="display:none;">
+                    <div id="online-users" class="users-group">
+                        </div>
+                    <h3 class="section-title">Offline</h3>
+                    <div id="offline-users" class="users-group">
+                        </div>
+                </div>
+
+                <div id="view-leaderboard" class="view" style="display:none;">
+                    <div class="auth-tabs">
+                        <button class="auth-tab">Previous Week</button>
+                        <button class="auth-tab active">This Week</button>
+                    </div>
+                    <div id="leaderboard-list" class="list-container mt-1">
+                        </div>
+                </div>
+
+            </main>
+
+            <nav class="bottom-nav">
+                <button class="nav-item" id="nav-timers" onclick="navigate('timers')"><i class="far fa-clock"></i></button>
+                <button class="nav-item active" id="nav-home" onclick="navigate('mystats')"><i class="fas fa-home"></i></button>
+                <button class="nav-item" id="nav-people" onclick="navigate('people')"><i class="fas fa-user-friends"></i></button>
+            </nav>
+        </div>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
