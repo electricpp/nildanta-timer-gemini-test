@@ -15,13 +15,21 @@ window.onload = () => {
     const savedUser = localStorage.getItem('nildanta_user');
     if (savedUser) {
         currentUser = savedUser;
+        
+        // Hide auth screen completely
+        document.getElementById('screen-auth').style.display = 'none'; 
         document.getElementById('screen-auth').classList.remove('active');
-        document.getElementById('main-app').classList.add('active');
-        navigate('mystats');
+
+        // Explicitly override the inline 'display: none' from HTML
+        const mainApp = document.getElementById('main-app');
+        mainApp.style.display = 'flex'; 
+        mainApp.classList.add('active');
+
+        // Navigate to the timers view instead of mystats
+        navigate('timers'); 
         listenToPresence();
     }
 };
-
 // --- Authentication Logic ---
 let authMode = 'signup';
 window.switchAuthTab = (mode) => {
@@ -61,7 +69,6 @@ window.handleAuth = async () => {
         }
     }
 };
-
 function loginUser(username, remember) {
     currentUser = username;
     if (remember) localStorage.setItem('nildanta_user', username);
@@ -75,11 +82,10 @@ function loginUser(username, remember) {
     mainApp.style.display = 'flex'; 
     mainApp.classList.add('active');
     
-    // 3. Move the viewport to your home layout view
-    navigate('mystats');
+    // 3. Move the viewport to your timers layout view
+    navigate('timers'); 
     listenToPresence();
 }
-
 // --- Navigation Logic ---
 const viewTitles = {
     'mystats': 'Home', 'timers': 'NILDANTA-TIMER', 'people': 'People in Study', 
